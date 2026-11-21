@@ -1,21 +1,16 @@
+
 import os
-from flask import Flask, jsonify
+from flask import Flask
 
 app = Flask(__name__)
 
-MESSAGE = os.environ.get(
-    "MESSAGE",
-    "Bonjour depuis mon premier PaaS !"
-)
-
 @app.route("/")
 def home():
-    return f"<h1>{MESSAGE}</h1><p>Version 1</p>"
-
-@app.route("/api/health")
-def health():
-    return jsonify(status="ok")
+    message = os.environ.get("MESSAGE", "Hello depuis Render !")
+    return f"""
+    <h1>{message}</h1>
+    <h2>Version 2</h2>
+    """
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+    app.run(host="0.0.0.0", port=5000)
